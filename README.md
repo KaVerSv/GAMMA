@@ -1,0 +1,2 @@
+# GAMMA
+ pojekt aplikacji społecznościowej
