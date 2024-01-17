@@ -23,22 +23,33 @@
         <div>
             <img src="../../public/img/user.png" alt="user">
             <span id="logged_user"><?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] . ' ' . $_SESSION['user_surname'] : '' ?></span>
-            <a href="cart"><img class="cart" src="../../public/img/koszyk.png" alt="koszyk"></a>
             <a href="logout"><img src="../../public/img/logout.png" alt="logout"></a>
         </div>
     </header>
 
-    <nav>
-    <div>
+<nav>
+    <div id="search-form-container">
         <form action="search.php" method="GET" id="search-form">
             <input type="text" name="query" placeholder="Szukaj postów...">
             <button type="submit">Szukaj</button>
         </form>
     </div>
 </nav>
-
-        <main>
-            <img src="../../public/img/main.png" alt="Logo should be here">
-        </main>
-    </body>
+    <main>
+        <div class="posts-container">
+            <?php
+            if (isset($posts)) {
+                foreach ($posts as $post) {
+                    if ($post->getVisibility() == 'public') {
+                        echo '<div class="post-card">';
+                        echo '<h2>' . $post->getTitle() . '</h2>';
+                        echo '<p>' . $post->getContent() . '</p>';
+                        echo '</div>';
+                    }
+                }
+            }
+            ?>
+        </div>
+    </main>
+</body>
 </html>
