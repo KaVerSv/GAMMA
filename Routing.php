@@ -16,6 +16,11 @@ class Routing{
 
     public static function run($url){
         $action = explode("/", $url)[0];
+
+        // Warunek dla braku argumentów -> strona główna
+        if (empty($action)) {
+            $action = 'main'; // Domyślna ścieżka dla pustego adresu
+        }
         
         if(!array_key_exists($action, self::$routes)){
             die("Wrong url!". $action);
