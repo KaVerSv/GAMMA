@@ -36,31 +36,6 @@
     </div>
 </nav>
     <main>
-<!--        <div class="comment-thread">-->
-<!--            --><?php
-//            if (isset($posts)) {
-//                foreach ($posts as $post) {
-//                    if ($post->getVisibility() == 'public') {
-//                        echo '<div class="comment" id="comment-1">';
-//                        echo '<div class="post-header">';
-//                        echo '<h2>' . $post->getTitle() . '</h2>';
-//                        echo '<div class="options">...</div>'; // Dodany blok z trzema kropkami
-//                        echo '</div>';
-//                        echo '<p>' . $post->getContent() . '</p>';
-//                        echo '<div class="post-actions">';
-//                        echo '<img class="like-icon" src="../../public/img/like.png" alt="Like">'; // Dodane zdjęcie zamiast tekstu "Like"
-//                        echo '<button class="comments-button">Comments</button>';
-//                        echo '</div>';
-//                        echo '</div>';
-//                    }
-//                }
-//            }
-//            ?>
-<!---->
-<!--        </div>-->
-
-
-
         <div>
             <?php
             if (isset($posts)) {
