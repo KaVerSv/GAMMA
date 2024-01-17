@@ -3,6 +3,7 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/Post.php';
 require_once __DIR__ . '/../repository/PostRepository.php';
+require_once __DIR__ . '/../repository/CommentRepository.php';
 
 class PostController extends AppController
 {
@@ -18,7 +19,11 @@ class PostController extends AppController
     {
         // Tutaj możesz umieścić kod do pobrania i wyświetlenia listy postów
         $latestPosts = $this->postRepository->getLatestPosts();
-        return $this->render('main', ['posts' => $latestPosts]);
+
+        // Pobierz komentarze powiązane z postami
+        $relatedComments = $this->commentRepository->getRelatedComments($latestPosts);
+
+        return $this->render('main', ['posts' => $latestPosts, 'comments' => $relatedComments]);
     }
 
     public function addPost()
