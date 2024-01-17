@@ -9,8 +9,9 @@ class Post
     private $group_id;
     private $visibility;
     private $time;
+    private $author;
 
-    public function __construct($id, $user_id, $title, $content, $group_id, $visibility, $time)
+    public function __construct($id, $user_id, $title, $content, $group_id, $visibility, $time, $author)
     {
         $this->id = $id;
         $this->user_id = $user_id;
@@ -19,6 +20,12 @@ class Post
         $this->group_id = $group_id;
         $this->visibility = $visibility;
         $this->time = $time;
+        $this->author = $author;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     public function getId()

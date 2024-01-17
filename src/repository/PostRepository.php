@@ -5,6 +5,7 @@ require_once __DIR__.'/../models/Post.php';
 
 class PostRepository extends Repository
 {
+    /*
     public function getPostById($postId): ?Post
     {
         $stmt = $this->database->connect()->prepare('SELECT * FROM posts WHERE id = :id');
@@ -24,9 +25,11 @@ class PostRepository extends Repository
             $postData['content'],
             $postData['group_id'],
             $postData['visibility'],
-            $postData['time']
+            $postData['time'],
+
         );
     }
+    */
 
     public function addPost(Post $post)
     {
@@ -58,8 +61,11 @@ class PostRepository extends Repository
 
         $postsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $latestPosts = [];
+        $userRepository = new UserRepository();
 
         foreach ($postsData as $postData) {
+            $username = $userRepository->getUserById($postData['user_id']);
+
             $latestPosts[] = new Post(
                 $postData['id'],
                 $postData['user_id'],
@@ -67,7 +73,8 @@ class PostRepository extends Repository
                 $postData['content'],
                 $postData['group_id'],
                 $postData['visibility'],
-                $postData['time']
+                $postData['time'],
+                $username
             );
         }
 

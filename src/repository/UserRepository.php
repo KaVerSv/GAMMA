@@ -81,4 +81,15 @@ class UserRepository extends Repository
             throw new Exception('Error adding user.');
         }
     }
+
+    public function getUserById(int $id): ?string
+    {
+        $stmt = $this->database->connect()->prepare('SELECT name FROM users WHERE id = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $userName = $stmt->fetchColumn();
+
+        return $userName ? $userName : null;
+    }
 }
