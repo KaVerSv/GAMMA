@@ -17,7 +17,7 @@
                <img src="../../public/img/logo.png" alt="Logo should be here">
            </div>
            <div id="register-container">
-                <h3>Rejestracja</h2>
+                <h2>Rejestracja</h2>
                 <form class="register" action="register" method="POST">
                     <input name="login" type="text" placeholder="login">
                     <input name="email" type="text" placeholder="email@email.com">

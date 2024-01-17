@@ -12,7 +12,7 @@
     <?php if ($_SESSION['user_type'] != 'admin') : ?>
         <link rel="stylesheet" type="text/css" href="../../public/css/style100.css">
     <?php endif; ?>
-    <title>Koszyk</title>
+    <title>Gamma</title>
 </head>
 
 <body>
@@ -30,39 +30,10 @@
 
     <nav>
     <div>
-        <a href="cpus">CPU</a>
-        <?php if ($_SESSION['user_type'] == 'admin') : ?>
-            <a href="cpusEdit">
-                <img class="cpus_edit" src="../../public/img/edit.png" alt="edit">
-            </a>
-        <?php endif; ?>
-    </div>
-
-    <div>
-        <a href="coolers">Chłodzenie CPU</a>
-        <?php if ($_SESSION['user_type'] == 'admin') : ?>
-            <a href="coolersEdit">
-                <img class="coolers_edit" src="../../public/img/edit.png" alt="edit">
-            </a>
-        <?php endif; ?>
-    </div>
-
-    <div>
-        <a href="motherboards">Płyty główne</a>
-        <?php if ($_SESSION['user_type'] == 'admin') : ?>
-            <a href="motherboardsEdit">
-                <img class="motherboards_edit" src="../../public/img/edit.png" alt="edit">
-            </a>
-        <?php endif; ?>
-    </div>
-
-    <div>
-        <a href="rams">RAM</a>
-        <?php if ($_SESSION['user_type'] == 'admin') : ?>
-            <a href="ramsEdit">
-                <img class="rams_edit" src="../../public/img/edit.png" alt="edit">
-            </a>
-        <?php endif; ?>
+        <form action="search.php" method="GET" id="search-form">
+            <input type="text" name="query" placeholder="Szukaj postów...">
+            <button type="submit">Szukaj</button>
+        </form>
     </div>
 </nav>
 
