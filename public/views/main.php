@@ -36,20 +36,110 @@
     </div>
 </nav>
     <main>
-        <div class="posts-container">
+<!--        <div class="comment-thread">-->
+<!--            --><?php
+//            if (isset($posts)) {
+//                foreach ($posts as $post) {
+//                    if ($post->getVisibility() == 'public') {
+//                        echo '<div class="comment" id="comment-1">';
+//                        echo '<div class="post-header">';
+//                        echo '<h2>' . $post->getTitle() . '</h2>';
+//                        echo '<div class="options">...</div>'; // Dodany blok z trzema kropkami
+//                        echo '</div>';
+//                        echo '<p>' . $post->getContent() . '</p>';
+//                        echo '<div class="post-actions">';
+//                        echo '<img class="like-icon" src="../../public/img/like.png" alt="Like">'; // Dodane zdjęcie zamiast tekstu "Like"
+//                        echo '<button class="comments-button">Comments</button>';
+//                        echo '</div>';
+//                        echo '</div>';
+//                    }
+//                }
+//            }
+//            ?>
+<!---->
+<!--        </div>-->
+
+
+
+        <div>
             <?php
             if (isset($posts)) {
                 foreach ($posts as $post) {
                     if ($post->getVisibility() == 'public') {
-                        echo '<div class="post-card">';
-                        echo '<h2>' . $post->getTitle() . '</h2>';
+                        echo '<div class="comment-thread">';
+                        echo '<div class="comment"' . $post->getId() . '>';
+                        echo '<a class="comment-border-link" id="main-border">';
+                        echo '</a>';
+                        echo '<div class="comment-heading">';
+                        echo '<div class="comment-voting">';
+                        echo '<button type="button">';
+                        echo '<span aria-hidden="true">&#9650;</span>';
+                        echo '<span class="sr-only">Vote up</span>';
+                        echo '</button>';
+                        echo '</div>';
+                        echo '<div class="comment-info">';
+                        echo '<a href="#" class="comment-author">' . $post->getTitle() . '</a>';
+                        echo '<p class="m-0">' . $post->points . ' points &bull; ' . $post->timestamp . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="comment-body">';
                         echo '<p>' . $post->getContent() . '</p>';
+                        echo '<button type="button">Reply</button>';
+                        echo '<button type="button">Flag</button>';
+                        echo '</div>';
+                        echo '<div class="replies">';
+                        echo '<div class="comment" id="comment-' . $post->getId() . '-reply-1">';
+                        echo '<a class="comment-border-link">';
+                        echo '</a>';
+                        echo '<div class="comment-heading">';
+                        echo '<div class="comment-voting">';
+                        echo '<button type="button">';
+                        echo '<span aria-hidden="true">&#9650;</span>';
+                        echo '<span class="sr-only">Vote up</span>';
+                        echo '</button>';
+                        echo '</div>';
+                        echo '<div class="comment-info">';
+                        echo '<a href="#" class="comment-author">ReplyAuthor1</a>';
+                        echo '<p class="m-0">10 points &bull; 1 day ago</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="comment-body">';
+                        echo '<p>This is a reply to the post.</p>';
+                        echo '<button type="button">Flag</button>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="comment" id="comment-' . $post->getId() . '-reply-2">';
+                        echo '<a class="comment-border-link">';
+                        echo '</a>';
+                        echo '<div class="comment-heading">';
+                        echo '<div class="comment-voting">';
+                        echo '<button type="button">';
+                        echo '<span aria-hidden="true">&#9650;</span>';
+                        echo '<span class="sr-only">Vote up</span>';
+                        echo '</button>';
+                        echo '</div>';
+                        echo '<div class="comment-info">';
+                        echo '<a href="#" class="comment-author">ReplyAuthor2</a>';
+                        echo '<p class="m-0">8 points &bull; 2 days ago</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<div class="comment-body">';
+                        echo '<p>Another reply to the post.</p>';
+                        echo '<button type="button">Flag</button>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '<button type="button" id = "load-more">Load more replies</button>';
+                        echo '</div>';
                         echo '</div>';
                     }
                 }
             }
             ?>
         </div>
+
+
+
     </main>
 </body>
 </html>
