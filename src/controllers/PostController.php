@@ -8,11 +8,13 @@ require_once __DIR__ . '/../repository/CommentRepository.php';
 class PostController extends AppController
 {
     private $postRepository;
+    private $commentRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->postRepository = new PostRepository();
+        $this->commentRepository = new CommentRepository();
     }
 
     public function main()
