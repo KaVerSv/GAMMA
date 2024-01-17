@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: docker/nginx/Dockerfile
     ports:
-      - "8081:80"
+      - "8080:80"
     volumes:
       - .:/app/
-    links:
+    depends_on:
       - php
     networks:
       - gamma-network
@@ -24,7 +24,7 @@ services:
       - gamma-network
 
   db:
-    container_name: pg_container
+    container_name: gamma_db_container
     image: postgres
     restart: always
     environment:
@@ -37,7 +37,7 @@ services:
       - gamma-network
 
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: gamma_pgadmin_container
     image: dpage/pgadmin4
     restart: always
     environment:
@@ -50,4 +50,3 @@ services:
 
 networks:
   gamma-network:
-    
