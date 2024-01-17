@@ -18,7 +18,7 @@ class PostController extends AppController
     {
         // Tutaj możesz umieścić kod do pobrania i wyświetlenia listy postów
         $latestPosts = $this->postRepository->getLatestPosts();
-        return $this->render('index', ['posts' => $latestPosts]);
+        return $this->render('main', ['posts' => $latestPosts]);
     }
 
     public function addPost()
