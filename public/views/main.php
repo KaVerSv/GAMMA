@@ -83,8 +83,8 @@
 
                                     <div id="comment-form-container-<?= $post->getId(); ?>" style="display: none;">
                                         <form action="main/addComment" method="POST">
+                                            <input type="hidden" name="user_id" value="<?= isset($_SESSION['user_ID']) ? $_SESSION['user_ID'] : ''; ?>">
                                             <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
-                                            <input type="hidden" name="author_name" value="<?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ''; ?>">
                                             <textarea name="comment_content" placeholder="Your Comment" required></textarea>
                                             <button type="submit">Add Comment</button>
                                         </form>

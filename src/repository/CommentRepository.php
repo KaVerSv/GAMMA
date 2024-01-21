@@ -33,6 +33,7 @@ class CommentRepository extends Repository
         return $relatedComments;
     }
 
+    /*
     public function addComment(Comment $comment, int $postId)
     {
         $stmt = $this->database->connect()->prepare("
@@ -43,6 +44,20 @@ class CommentRepository extends Repository
             $comment->getUserId(),
             $postId,
             $comment->getContent()
+        ]);
+    }
+    */
+
+    public function addComment(int $postId, int $userID, String $commentContent)
+    {
+        $stmt = $this->database->connect()->prepare("
+            INSERT INTO comments (user_id, post_id, content) 
+            VALUES (?, ?, ?)
+        ");
+        $stmt->execute([
+            $postId,
+            $userID,
+            $commentContent
         ]);
     }
 }

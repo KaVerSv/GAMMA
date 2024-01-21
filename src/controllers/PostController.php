@@ -52,16 +52,15 @@ class PostController extends AppController
         }
 
         $postId = $_POST['post_id'];
-        $authorName = $_SESSION['user_name'];
+        $userID = $_SESSION['user_ID'];
         $commentContent = $_POST['comment_content'];
 
         // Walidacja danych (jeśli potrzebna)
 
         $commentRepository = new CommentRepository();
-        $commentRepository->addComment(new Comment(null, $_SESSION['user_ID'], $authorName, $_SESSION['user_surname'], $_SESSION['user_photo'], $commentContent), $postId);
+        //$commentRepository->addComment(new Comment(null, $_SESSION['user_ID'], $userID, $_SESSION['user_surname'], $_SESSION['user_photo'], $commentContent), $postId);
+        $commentRepository->addComment($postId, $userID, $commentContent);
 
-        // Przekierowanie z powrotem na stronę posta po dodaniu komentarza
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/post/index");
+        $this->main();
     }
 }
