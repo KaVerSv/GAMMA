@@ -44,4 +44,26 @@ class PostController extends AppController
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/post/index");
     }
+
+    public function addComment()
+    {
+        if (!$this->isPost()) {
+            // Zabezpieczenie przed próbą dostępu bezpośredniego do akcji
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
+
+        $postId = $_POST['post_id'];
+        $authorName = $_SESSION['user_name'];
+        $commentContent = $_POST['comment_content'];
+
+        // Walidacja danych (jeśli potrzebna)
+
+        $commentRepository = new CommentRepository();
+        $commentRepository->addComment(new Comment(null, $_SESSION['user_ID'], $authorName, $_SESSION['user_surname'], $_SESSION['user_photo'], $commentContent), $postId);
+
+        // Przekierowanie z powrotem na stronę posta po dodaniu komentarza
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/post/index");
+    }
 }

@@ -32,5 +32,18 @@ class CommentRepository extends Repository
 
         return $relatedComments;
     }
+
+    public function addComment(Comment $comment, int $postId)
+    {
+        $stmt = $this->database->connect()->prepare("
+            INSERT INTO comments (user_id, post_id, content) 
+            VALUES (?, ?, ?)
+        ");
+        $stmt->execute([
+            $comment->getUserId(),
+            $postId,
+            $comment->getContent()
+        ]);
+    }
 }
 ?>

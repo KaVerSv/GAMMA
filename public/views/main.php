@@ -75,8 +75,21 @@
                                     </div>
                                 </div>
                                 <p><?=$post->getContent()?></p>
-                                <button type="button">Reply</button>
+                                <button type="button" onclick="toggleCommentForm(<?= $post->getId(); ?>)">Reply</button>
                                 <button type="button">Flag</button>
+
+                                <div class="post-body">
+                                    <!-- ... inne elementy ... -->
+
+                                    <div id="comment-form-container-<?= $post->getId(); ?>" style="display: none;">
+                                        <form action="main/addComment" method="POST">
+                                            <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
+                                            <input type="hidden" name="author_name" value="<?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ''; ?>">
+                                            <textarea name="comment_content" placeholder="Your Comment" required></textarea>
+                                            <button type="submit">Add Comment</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <script>
                                 initializeGallery(<?= $post->getId(); ?>, <?= json_encode($post->getGalleryPhotos()); ?>);
@@ -115,5 +128,12 @@
             <?php endforeach; ?>
         </div>
     </main>
+
+    <script>
+        function toggleCommentForm(postId) {
+            var commentForm = document.getElementById('comment-form-container-' + postId);
+            commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>
