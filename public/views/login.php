@@ -3,9 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Ta struna to bydzie ło niczym">
-        <meta name="keywords" content="strona, ło, niczem">
-        <meta name="author" content="Piotr Żywczak">
         <link rel="icon" type="image/x-icon" href="../../public/img/logo.png">
         <link rel="stylesheet" type="text/css" href="../../public/css/style10.css">
         <title>Logowanie</title>
@@ -16,7 +13,7 @@
                 <img src="../../public/img/logo.png" alt="Logo should be here">
            </div>
            <div id="login-container">
-                <h3>Logowanie</h2>
+                <h2>Logowanie</h2>
                 <form class="login" action="login" method="POST">
                    <input name="email" type="text" placeholder="email@email.com"><br>
                    <input name="password" type="password" placeholder="password"><br>

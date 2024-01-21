@@ -105,54 +105,9 @@ nav img {
 
 main {
     padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-main > img {
-    width: 100%; /* Zmieniłem wartość na 100% szerokości okna przeglądarki */
-    max-width: 600px; /* Dodane ograniczenie maksymalnej szerokości */
-    margin: 0 auto; /* Dodane, aby obraz był wyśrodkowany */
-}
-
-.cooler-container, .cpu-container, .motherboard-container, .ram-container {
-    width: 30%; /* Ustawiona szerokość diva */
-    border: 1px solid #ccc; /* Obramowanie na szaro */
-    margin: 20px; /* Odstęp między divami */
-    padding: 10px;
-    box-sizing: border-box;
-    min-width: 350px;
-}
-
-.cooler-container > img, .cpu-container > img, .motherboard-container > img, .ram-container > img {
-    width: 100%; /* Ustawienie, aby obrazy były responsywne */
-    height: auto;
-    margin-bottom: 10px; /* Odstęp między obrazem a tekstem */
-}
-
-.to-cart {
-    width: 30px; /* Ustawiona szerokość drugiego obrazu */
-}
-
-.cooler-container span, .cpu-container span, .motherboard-container span, .ram-container span {
-    display: block;
-    margin-bottom: 5px; /* Odstęp między poszczególnymi spanami */
-}
-
-.price {
-    font-weight: bold;
-    font-size: 20px;
-    text-align: right;
-    float: left;
-    width: 280px;
-    padding-top: 20px;
-}
-
-.cooler-container img:last-child, .cpu-container img:last-child, .motherboard-container img:last-child, .ram-container img:last-child  {
-    float: right;
-    width: 50px;
-    padding-top: 10px;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
 }
 
 
@@ -201,8 +156,7 @@ body {
     color: rgba(0, 0, 0, 0.85);
     background-color: #f9f9f9;
 
-}
-button {
+}button {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -213,23 +167,29 @@ button {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
+
 button:hover,
 button:focus,
 button:active {
     cursor: pointer;
     background-color: #ecf0f1;
 }
-.comment-thread {
+
+.comment-thread,
+.post-thread {
     width: 700px;
     max-width: 100%;
     padding: 0 30px;
     background-color: #fff;
     border: 1px solid black;
     margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .m-0 {
     margin: 0;
 }
+
 .sr-only {
     position: absolute;
     left: -10000px;
@@ -239,65 +199,62 @@ button:active {
     overflow: hidden;
 }
 
-/* Comment */
+/* Comment and Post */
 
-.comment {
+.comment,
+.post {
     position: relative;
     margin: 20px auto;
-}
-
-.comment-voting button {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-.comment-heading {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    font-size: 14px;
-}
-.comment-voting {
-    width: 20px;
-    height: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.comment-voting button {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    border: 0;
-    font-size: 10px;
+.comment-voting button,
+.post-voting button {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
     cursor: pointer;
     background-color: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .comment-voting button:hover,
 .comment-voting button:focus,
-.comment-voting button:active {
+.comment-voting button:active,
+.post-voting button:hover,
+.post-voting button:focus,
+.post-voting button:active {
     background-color: #ecf0f1;
 }
-.comment-info {
+
+.comment-info,
+.post-info {
     color: rgba(0, 0, 0, 0.5);
     margin-left: 10px;
 }
-.comment-author {
+
+.comment-author,
+.post-author {
     color: rgba(0, 0, 0, 0.85);
     font-weight: bold;
     text-decoration: none;
 }
-.comment-author:hover {
+
+.comment-author:hover,
+.post-author:hover {
     text-decoration: underline;
 }
-.replies {
-    margin-left: 20px;
+
+.comment-body,
+.post-body {
+    padding: 0;
 }
 
-/* Adjustments for the comment border links */
-
-.comment-border-link {
+.comment-border-link,
+.post-border-link {
     display: block;
     position: absolute;
     top: 50px;
@@ -309,19 +266,25 @@ button:active {
     background-color: rgba(0, 0, 0, 0.1);
     background-clip: padding-box;
 }
-#main-border.comment-border-link {
+
+.post-border-link {
     height: calc(100% - 60px);
 }
-.comment-border-link:hover {
+
+.comment-border-link:hover,
+.post-border-link:hover {
     background-color: rgba(0, 0, 0, 0.3);
 }
+
 .comment-body {
     padding: 0 20px;
     padding-left: 28px;
 }
+
 .replies {
     margin-left: 28px;
 }
+
 .show-more {
     display: block;
     margin: 20px auto;
@@ -341,3 +304,22 @@ button:active {
     margin-left: 28px;
     margin-bottom: 10px;
 }
+
+
+/* ... inne style ... */
+
+.author-photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+    float: left;
+}
+
+.author-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+/* ... inne style ... */

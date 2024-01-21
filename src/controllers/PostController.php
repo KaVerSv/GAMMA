@@ -8,20 +8,18 @@ require_once __DIR__ . '/../repository/CommentRepository.php';
 class PostController extends AppController
 {
     private $postRepository;
-    private $commentRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->postRepository = new PostRepository();
-        $this->commentRepository = new CommentRepository();
     }
 
     public function main()
     {
         $latestPosts = $this->postRepository->getLatestPosts();
-        $relatedComments = $this->commentRepository->getRelatedComments($latestPosts);
-        return $this->render('main', ['posts' => $latestPosts, 'comments' => $relatedComments]);
+        echo sizeof($latestPosts);
+        return $this->render('main', ['posts' => $latestPosts]);
     }
 
     public function addPost()

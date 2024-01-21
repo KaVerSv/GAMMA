@@ -1,9 +1,10 @@
 <?php
 
+require_once 'CommentRepository.php';
 require_once __DIR__.'/../../Database.php';
 require_once __DIR__.'/../models/Post.php';
 
-class PostRepository extends Repository
+class PostRepository extends CommentRepository
 {
     /*
     public function getPostById($postId): ?Post
@@ -50,10 +51,28 @@ class PostRepository extends Repository
         }
     }
 
+    public function getRelatedPhotos(int $postId)
+    {
+        $stmt = $this->database->connect()->prepare("
+            SELECT image_path FROM posts_images
+            WHERE post_id = ?
+        ");
+        $stmt->execute([$postId]);
+
+        $relatedPhotos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $photoPaths = array_column($relatedPhotos, 'image_path');
+
+        return $photoPaths;
+    }
+
     public function getLatestPosts(): array
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM posts
+            SELECT p.id, p.user_id, p.title, p.content, p.group_id, p.visibility, p.time, u.name, u.surname, u_p.image_path AS image 
+            FROM posts p 
+            JOIN users u ON p.user_id = u.id 
+            JOIN user_profiles u_p ON u.id = u_p.id 
             ORDER BY time DESC
             LIMIT 20
         ');
@@ -61,11 +80,8 @@ class PostRepository extends Repository
 
         $postsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $latestPosts = [];
-        $userRepository = new UserRepository();
 
         foreach ($postsData as $postData) {
-            $username = $userRepository->getUserById($postData['user_id']);
-
             $latestPosts[] = new Post(
                 $postData['id'],
                 $postData['user_id'],
@@ -74,10 +90,20 @@ class PostRepository extends Repository
                 $postData['group_id'],
                 $postData['visibility'],
                 $postData['time'],
-                $username
+                $postData['name'],
+                $postData['surname'],
+                $postData['image']
             );
+        }
+
+        foreach ($latestPosts as $post) {
+            $post->setComments(CommentRepository::getRelatedComments($post->getId()));
+            $post->setPhotos($this->getRelatedPhotos($post->getId()));
         }
 
         return $latestPosts;
     }
+    
+    
+
 }

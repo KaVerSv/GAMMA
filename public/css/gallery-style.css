@@ -1,0 +1,55 @@
+.post-body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  #gallery-container {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100%;
+    display: none;
+  }
+  
+  .image-wrapper.active {
+    display: block;
+  }
+  
+  .image {
+    width: 100%;
+    display: block;
+  }
+  
+  .image-wrapper:hover .overlay {
+    opacity: 1;
+  }
+  
+  .scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .scroll-button-left {
+    left: 0;
+  }
+  
+  .scroll-button-right {
+    right: 0;
+  }
+  

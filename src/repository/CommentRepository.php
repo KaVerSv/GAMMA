@@ -5,22 +5,16 @@ require_once __DIR__.'/../models/Comment.php';
 
 class CommentRepository extends Repository
 {
-    public function getRelatedComments(array $posts): array
+    public function getRelatedComments(int $postId)
     {
-        // Przygotuj tablicę id postów
-        $postIds = array_map(function ($post) {
-            return $post->getId();
-        }, $posts);
-
-        // Przygotuj warunki dla zapytania SQL
-        $conditions = implode(',', array_fill(0, count($postIds), '?'));
-
         // Pobierz komentarze dla powiązanych postów
         $stmt = $this->database->connect()->prepare("
-            SELECT * FROM comments
-            WHERE post_id IN ($conditions)
+            SELECT c.id, c.user_id, c.content, u.name, u.surname, u_p.image_path FROM comments c 
+            JOIN users u ON u.id = c.user_id 
+            JOIN user_profiles u_p ON u.id = u_p.id
+            WHERE c.post_id = ?
         ");
-        $stmt->execute($postIds);
+        $stmt->execute([$postId]);
 
         $commentsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $relatedComments = [];
@@ -29,7 +23,9 @@ class CommentRepository extends Repository
             $relatedComments[] = new Comment(
                 $commentData['id'],
                 $commentData['user_id'],
-                $commentData['post_id'],
+                $commentData['name'],
+                $commentData['surname'],
+                $commentData['image_path'],
                 $commentData['content']
             );
         }
