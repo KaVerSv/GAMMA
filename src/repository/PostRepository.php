@@ -104,7 +104,7 @@ class PostRepository extends CommentRepository
         return $latestPosts;
     }
 
-    public function getGroupPosts(int $group_id): array
+    public function getGroupPosts(int $group_id)
     {
         $stmt = $this->database->connect()->prepare('
             SELECT p.id, p.user_id, p.title, p.content, p.group_id, p.visibility, p.time, u.name, u.surname, u_p.image_path AS image 
@@ -116,6 +116,44 @@ class PostRepository extends CommentRepository
             LIMIT 20
         ');
         $stmt->execute([$group_id]);
+
+        $postsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $latestPosts = [];
+
+        foreach ($postsData as $postData) {
+            $latestPosts[] = new Post(
+                $postData['id'],
+                $postData['user_id'],
+                $postData['title'],
+                $postData['content'],
+                $postData['group_id'],
+                $postData['visibility'],
+                $postData['time'],
+                $postData['name'],
+                $postData['surname'],
+                $postData['image']
+            );
+        }
+
+        foreach ($latestPosts as $post) {
+            $post->setComments(CommentRepository::getRelatedComments($post->getId()));
+            $post->setPhotos($this->getRelatedPhotos($post->getId()));
+        }
+
+        return $latestPosts;
+    }    
+    public function getUserPosts(int $user_id)
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT p.id, p.user_id, p.title, p.content, p.group_id, p.visibility, p.time, u.name, u.surname, u_p.image_path AS image 
+            FROM posts p 
+            JOIN users u ON p.user_id = u.id 
+            JOIN user_profiles u_p ON u.id = u_p.id 
+            WHERE p.user_id = ?
+            ORDER BY time DESC
+            LIMIT 20
+        ');
+        $stmt->execute([$user_id]);
 
         $postsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $latestPosts = [];

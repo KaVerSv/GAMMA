@@ -1,5 +1,6 @@
 <?php
 
+require_once 'Repository.php';
 require_once __DIR__.'/../../Database.php';
 require_once __DIR__.'/../models/Comment.php';
 
