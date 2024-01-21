@@ -18,7 +18,6 @@ class PostController extends AppController
     public function main()
     {
         $latestPosts = $this->postRepository->getLatestPosts();
-        echo sizeof($latestPosts);
         return $this->render('main', ['posts' => $latestPosts]);
     }
 
@@ -33,7 +32,6 @@ class PostController extends AppController
         $content = $_POST['content'];
         $groupId = $_POST['group_id']; // Ustaw to zgodnie z formularzem
         $visibility = $_POST['visibility']; // Ustaw to zgodnie z formularzem
-        $time = date('Y-m-d H:i:s'); // Ustaw datę i czas na bieżące
 
         // Walidacja danych
 
