@@ -12,5 +12,6 @@ Routing::get('logout', 'SecurityController');
 Routing::get('search', 'DefaultController');
 Routing::get('main', 'PostController');
 Routing::get('group', 'GroupController');
+Routing::get('user', 'UserController');
 
 Routing::run($path);

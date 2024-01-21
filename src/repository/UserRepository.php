@@ -1,9 +1,10 @@
 <?php
 
-require_once 'Repository.php';
+require_once 'PostRepository.php';
 require_once __DIR__.'/../models/User.php';
+require_once __DIR__.'/../models/userProfile.php';
 
-class UserRepository extends Repository
+class UserRepository extends PostRepository
 {
     public function isEmailUnique(string $email): bool
     {
@@ -49,6 +50,27 @@ class UserRepository extends Repository
             $userData['login'],
             $userData['type']
         );
+    }
+
+    public function getUserProfile(int $user_id){
+        $stmt = $this->database->connect()->prepare('
+        SELECT u.id, u.name, u.surname, u_p.image_path, u_p.description, u_p.visibility FROM users u 
+        JOIN user_profiles u_p ON u.id = u_p.id WHERE u.id = ?');
+        $stmt->execute([$user_id]);
+
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $user_profile = new UserProfile(
+            $userData['id'],
+            $userData['name'],
+            $userData['surname'],
+            $userpData['image_path'],
+            $userData['description'],
+        );
+
+        $user_profile->setPosts($this->getUserPosts($user_profile->getId()));
+
+        return $user_profile;
     }
 
     public function addUser(User $user)
