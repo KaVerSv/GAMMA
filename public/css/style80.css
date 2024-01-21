@@ -40,7 +40,7 @@ header > div:nth-child(2) > img {
 header > div:nth-child(2) > a > img {
     width: 30px; /* Dostosowana szerokość ikon */
     height: 30px; /* Dostosowana wysokość ikon */
-    padding: 10px;
+    padding: 1px;
 }
 
 header > div:nth-child(2) > a > img[alt='login'] {
@@ -156,7 +156,8 @@ body {
     color: rgba(0, 0, 0, 0.85);
     background-color: #f9f9f9;
 
-}button {
+}
+button {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -166,6 +167,10 @@ body {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover,
@@ -210,7 +215,13 @@ button:active {
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-
+.post .post-info,
+.post-border-link,
+.post .post-body,
+.comment .comment-info,
+.comment-border-link{
+    margin-left: 24px;
+}
 .comment-voting button,
 .post-voting button {
     width: 20px;
@@ -253,12 +264,14 @@ button:active {
     padding: 0;
 }
 
+
+
 .comment-border-link,
 .post-border-link {
     display: block;
     position: absolute;
     top: 50px;
-    left: 0;
+    left: 0px;
     width: 12px;
     height: calc(100% - 50px);
     border-left: 4px solid transparent;
@@ -267,6 +280,7 @@ button:active {
     background-clip: padding-box;
 }
 
+.comment-border-link,
 .post-border-link {
     height: calc(100% - 60px);
 }
