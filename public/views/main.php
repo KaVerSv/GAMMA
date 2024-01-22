@@ -32,8 +32,8 @@
 
 <nav>
     <div id="search-form-container">
-        <form action="search.php" method="GET" id="search-form">
-            <input type="text" name="query" placeholder="Szukaj postów...">
+        <form action="search" method="GET" id="search">
+            <input type="text" name="query" placeholder="Szukaj w...">
             <button type="submit">Szukaj</button>
         </form>
     </div>

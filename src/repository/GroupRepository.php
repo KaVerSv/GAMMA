@@ -28,4 +28,33 @@ class GroupRepository extends PostRepository
 
         return $group_profile;
     }
+
+    public function search(string $search){
+        $stmt = $this->database->connect()->prepare('
+            SELECT g.id, g.name, g.owner_id, g.image_path, g.description, g.visibility, u.name AS firstname, u.surname 
+            FROM groups g 
+            JOIN users u ON u.id = g.owner_id 
+            WHERE g.name ILIKE ?
+        ');
+    
+        $stmt->execute(["%$search%"]);
+    
+        $groupsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $found_groups = [];
+    
+        foreach($groupsData as $groupData){
+            $found_groups[] = new Group(
+                $groupData['id'],
+                $groupData['name'],
+                $groupData['owner_id'],
+                $groupData['firstname'],
+                $groupData['surname'],
+                $groupData['image_path'],
+                $groupData['description']
+            );
+        }
+        
+        return $found_groups;
+    }
+    
 }

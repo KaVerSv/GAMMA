@@ -5,6 +5,7 @@ require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/PostController.php';
 require_once 'src/controllers/GroupController.php';
 require_once 'src/controllers/UserController.php';
+require_once 'src/controllers/SearchController.php';
 
 class Routing{
     public static $routes;

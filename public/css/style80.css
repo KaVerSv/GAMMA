@@ -123,19 +123,19 @@ main {
     margin-right: 60px;
 }
 
-#search-form {
+#search {
     display: flex;
     align-items: center;
 }
 
-#search-form input {
+#search input {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-#search-form button {
+#search button {
     padding: 10px 20px;
     background-color: #0094FF;
     color: white;
@@ -144,7 +144,7 @@ main {
     cursor: pointer;
 }
 
-#search-form button:hover {
+#search button:hover {
     background-color: #003E6A;
 }
 * {

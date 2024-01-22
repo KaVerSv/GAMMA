@@ -104,6 +104,43 @@ class PostRepository extends CommentRepository
         return $latestPosts;
     }
 
+    public function search(string $search){
+        $stmt = $this->database->connect()->prepare('
+            SELECT p.id, p.user_id, p.title, p.content, p.group_id, p.visibility, p.time, u.name, u.surname, u_p.image_path AS image 
+            FROM posts p 
+            JOIN users u ON p.user_id = u.id 
+            JOIN user_profiles u_p ON u.id = u_p.id 
+            WHERE p.title ILIKE ?
+        ');
+        
+        $stmt->execute(["%$search%"]);
+    
+        $postsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $found_posts = [];
+    
+        foreach ($postsData as $postData) {
+            $found_posts[] = new Post(
+                $postData['id'],
+                $postData['user_id'],
+                $postData['title'],
+                $postData['content'],
+                $postData['group_id'],
+                $postData['visibility'],
+                $postData['time'],
+                $postData['name'],
+                $postData['surname'],
+                $postData['image']
+            );
+        }
+    
+        foreach ($found_posts as $post) {
+            $post->setComments(CommentRepository::getRelatedComments($post->getId()));
+            $post->setPhotos($this->getRelatedPhotos($post->getId()));
+        }
+    
+        return $found_posts;
+    }
+
     public function getGroupPosts(int $group_id)
     {
         $stmt = $this->database->connect()->prepare('

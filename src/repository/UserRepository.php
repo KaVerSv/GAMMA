@@ -73,6 +73,36 @@ class UserRepository extends PostRepository
         return $user_profile;
     }
 
+    public function search(string $search){
+        $dane_osobowe = explode(" ", $search);
+    
+        $stmt = $this->database->connect()->prepare('
+            SELECT u.id, u.name, u.surname, u_p.image_path, u_p.description, u_p.visibility 
+            FROM users u 
+            JOIN user_profiles u_p ON u.id = u_p.id 
+            WHERE (u.name ILIKE ? AND u.surname ILIKE ?) OR (u.name ILIKE ? AND u.surname ILIKE ?)
+        ');
+    
+        $stmt->execute(["%$dane_osobowe[0]%", "%$dane_osobowe[1]%", "%$dane_osobowe[0]%", "%$dane_osobowe[1]%"]);
+    
+        $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $found_users = [];
+    
+        foreach($usersData as $userData){
+            $found_users[] = new UserProfile(
+                $userData['id'],
+                $userData['name'],
+                $userData['surname'],
+                $userData['image_path'],
+                $userData['description']
+            );
+        }
+    
+        return $found_users;
+    }
+    
+    
+
     public function addUser(User $user)
     {
         if (!$this->isEmailUnique($user->getEmail())) {
