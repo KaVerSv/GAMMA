@@ -75,15 +75,18 @@ class UserRepository extends PostRepository
 
     public function search(string $search){
         $dane_osobowe = explode(" ", $search);
-    
         $stmt = $this->database->connect()->prepare('
             SELECT u.id, u.name, u.surname, u_p.image_path, u_p.description, u_p.visibility 
             FROM users u 
             JOIN user_profiles u_p ON u.id = u_p.id 
-            WHERE (u.name ILIKE ? AND u.surname ILIKE ?) OR (u.name ILIKE ? AND u.surname ILIKE ?)
+            WHERE (u.name ILIKE ? OR u.name ILIKE ? OR u.surname ILIKE ? OR u.surname ILIKE ?)
         ');
     
-        $stmt->execute(["%$dane_osobowe[0]%", "%$dane_osobowe[1]%", "%$dane_osobowe[0]%", "%$dane_osobowe[1]%"]);
+        if (empty($dane_osobowe[1])) {
+            $stmt->execute(["%$dane_osobowe[0]%", "%$dane_osobowe[0]%", "%$dane_osobowe[0]%", "%$dane_osobowe[0]%"]);
+        } else {
+            $stmt->execute(["%$dane_osobowe[0]%", "%$dane_osobowe[1]%", "%$dane_osobowe[0]%", "%$dane_osobowe[1]%"]);
+        }
     
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $found_users = [];

@@ -15,6 +15,12 @@
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/gallery.js"></script>
+    <script>
+        function toggleCommentForm(postId) {
+            var commentForm = document.getElementById('comment-form-container-' + postId);
+            commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="../../public/css/gallery-style.css">
 </head>
 
@@ -128,12 +134,5 @@
             <?php endforeach; ?>
         </div>
     </main>
-
-    <script>
-        function toggleCommentForm(postId) {
-            var commentForm = document.getElementById('comment-form-container-' + postId);
-            commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
-        }
-    </script>
 </body>
 </html>
