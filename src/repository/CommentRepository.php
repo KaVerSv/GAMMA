@@ -2,7 +2,7 @@
 
 require_once 'Repository.php';
 require_once __DIR__.'/../../Database.php';
-require_once __DIR__.'/../models/Comment.php';
+require_once __DIR__.'/../models/comment.php';
 
 class CommentRepository extends Repository
 {
@@ -60,6 +60,30 @@ class CommentRepository extends Repository
             $userID,
             $commentContent
         ]);
+    }
+
+    public function addReports(array $reported_comments, int $user_id)
+    {
+        foreach ($reported_comments as $comment_id) {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO reports (user_id, comment_id)
+                VALUES (?, ?)
+            ');
+        
+            $stmt->execute([$user_id, $comment_id]);
+        }
+    }
+
+    public function addLikes(array $liked_comments, int $user_id)
+    {
+        foreach ($liked_comments as $comment_id) {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO likes (user_id, comment_id)
+                VALUES (?, ?)
+            ');
+        
+            $stmt->execute([$user_id, $comment_id]);
+        }
     }
 }
 ?>

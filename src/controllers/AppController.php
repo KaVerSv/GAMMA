@@ -7,7 +7,13 @@ class AppController {
     {
         session_start();
         $this->request = $_SERVER['REQUEST_METHOD'];
+        //register_shutdown_function('end_session');
     }
+
+    //function end_session() {
+       
+      //  echo "Funkcja cleanup_session została wywołana po zakończeniu sesji.";
+    //}
 
     protected function isGet(): bool
     {

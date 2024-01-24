@@ -14,5 +14,6 @@ Routing::get('main', 'PostController');
 Routing::get('group', 'GroupController');
 Routing::get('user', 'UserController');
 Routing::get('search', 'SearchController');
+Routing::get('addComment', 'CommentController');
 
 Routing::run($path);

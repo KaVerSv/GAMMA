@@ -3,7 +3,6 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/Post.php';
 require_once __DIR__ . '/../repository/PostRepository.php';
-require_once __DIR__ . '/../repository/CommentRepository.php';
 
 class PostController extends AppController
 {
@@ -43,24 +42,20 @@ class PostController extends AppController
         header("Location: {$url}/post/index");
     }
 
-    public function addComment()
+    public function like_posts()
     {
-        if (!$this->isPost()) {
-            // Zabezpieczenie przed próbą dostępu bezpośredniego do akcji
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit();
-        }
+        $liked_posts = $_SESSION['liked_posts'];
+        $user_id = $_SESSION['user_ID'];
 
-        $postId = $_POST['post_id'];
-        $userID = $_SESSION['user_ID'];
-        $commentContent = $_POST['comment_content'];
-
-        // Walidacja danych (jeśli potrzebna)
-
-        $commentRepository = new CommentRepository();
-        //$commentRepository->addComment(new Comment(null, $_SESSION['user_ID'], $userID, $_SESSION['user_surname'], $_SESSION['user_photo'], $commentContent), $postId);
-        $commentRepository->addComment($postId, $userID, $commentContent);
-
-        $this->main();
+        $this->postRepository->addLikes($liked_posts, $user_id);
     }
+
+    public function report_posts()
+    {
+        $reported_posts = $_SESSION['reported_posts'];
+        $user_id = $_SESSION['user_ID'];
+
+        $this->postRepository->addReports($liked_posts, $user_id);
+    }
+
 }

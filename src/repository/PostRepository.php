@@ -178,7 +178,8 @@ class PostRepository extends CommentRepository
         }
 
         return $latestPosts;
-    }    
+    } 
+
     public function getUserPosts(int $user_id)
     {
         $stmt = $this->database->connect()->prepare('
@@ -218,5 +219,28 @@ class PostRepository extends CommentRepository
         return $latestPosts;
     }    
     
+    public function addReports(array $reported_posts, int $user_id)
+    {
+        foreach ($reported_posts as $post_id) {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO reports (user_id, post_id)
+                VALUES (?, ?)
+            ');
+        
+            $stmt->execute([$user_id, $post_id]);
+        }
+    }
+
+    public function addLikes(array $liked_posts, int $user_id)
+    {
+        foreach ($liked_posts as $post_id) {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO likes (user_id, post_id)
+                VALUES (?, ?)
+            ');
+        
+            $stmt->execute([$user_id, $post_id]);
+        }
+    }
 
 }

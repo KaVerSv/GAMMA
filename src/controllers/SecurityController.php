@@ -50,6 +50,10 @@ class SecurityController extends AppController
         $_SESSION['user_surname'] = $user->getSurname();
         $_SESSION['user_email'] = $user->getEmail();
         $_SESSION['user_type'] = $user->getType();
+        $_SESSION['liked_posts'] = [];
+        $_SESSION['liked_comments'] = [];
+        $_SESSION['reported_posts'] = [];
+        $_SESSION['reported_comments'] = [];
 
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: {$url}/");
@@ -58,7 +62,6 @@ class SecurityController extends AppController
     public function logout()
     {
         // Zakończenie sesji
-        session_unset();
         session_destroy();
         
         // Przekierowanie na stronę logowania

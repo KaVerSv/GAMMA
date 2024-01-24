@@ -18,7 +18,7 @@ class UserController extends AppController
     {
         if ($this->isGet()) {
             $user_id = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
-
+            
             $user_profile = $this->userRepository->getUserProfile($user_id);
             return $this->render('user', ['user_profile' => $user_profile]);
         }

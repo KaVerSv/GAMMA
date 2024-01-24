@@ -6,6 +6,7 @@ require_once 'src/controllers/PostController.php';
 require_once 'src/controllers/GroupController.php';
 require_once 'src/controllers/UserController.php';
 require_once 'src/controllers/SearchController.php';
+require_once 'src/controllers/CommentController.php';
 
 class Routing{
     public static $routes;
