@@ -15,6 +15,8 @@
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/gallery.js"></script>
+    <script src="../../public/js/like.js"></script>
+    <script src="../../public/js/report.js"></script>
     <script>
         function toggleCommentForm(postId) {
             var commentForm = document.getElementById('comment-form-container-' + postId);
@@ -52,7 +54,7 @@
                         <a class="post-border-link" id="main-border"></a>
                             <div class="post-heading">
                                 <div class="post-voting">
-                                    <button type="button">
+                                    <button class="likePost" data-post-id="<?=$post->getID()?>">
                                         <span aria-hidden="true">&#9650;</span>
                                         <span class="sr-only">Vote up</span> 
                                     </button>
@@ -60,10 +62,16 @@
                                 </div>
                                 <div class="post-info">
                                     <div class="author-photo">
-                                        <img src="../../public/img/<?=$post->getAuthorPhoto()?>">
+                                        <a href="user?user_id=<?= $post->getUserId()?>">
+                                            <img src="../../public/img/<?=$post->getAuthorPhoto()?>">
+                                        </a>
                                     </div>
                                     <div class="info">
-                                        <p class="m-0"> <?=$post->getAuthorName().' '.$post->getAuthorSurname() ?> points &bull;</p>
+                                        <p class="m-0"> 
+                                            <a href="user?user_id=<?= $post->getUserId()?>">
+                                                <?=$post->getAuthorName().' '.$post->getAuthorSurname()?>
+                                            </a>
+                                            points &bull;</p>
                                         <p class="m-1"> <?= $post->getTime() ?></p>
                                     </div> 
                                 </div>
@@ -82,10 +90,9 @@
                                 </div>
                                 <p><?=$post->getContent()?></p>
                                 <button type="button" onclick="toggleCommentForm(<?= $post->getId(); ?>)">Reply</button>
-                                <button type="button">Flag</button>
+                                <button class="reportPost" data-post-id="<?=$post->getID()?>">Report</button>
 
                                 <div class="post-body">
-                                    <!-- ... inne elementy ... -->
 
                                     <div id="comment-form-container-<?= $post->getId(); ?>" style="display: none;">
                                         <form action="main/addComment" method="POST">
@@ -106,23 +113,28 @@
                                     <a class="comment-border-link"></a>
                                     <div class="comment-heading">
                                         <div class="comment-voting">
-                                            <button type="button">
+                                            <button class="likeComment" data-comment-id="<?=$comment->getID()?>">
                                                 <span aria-hidden="true">&#9650;</span>
                                                 <span class="sr-only">Vote up</span>
                                             </button>
                                         </div>
                                         <div class="comment-info">
                                             <div class="author-photo">
-                                                <img src="../../public/img/<?=$comment->getAuthorPhoto()?>">
+                                                <a href="user?user_id=<?= $comment->getUserId()?>">
+                                                    <img src="../../public/img/<?= $comment->getAuthorPhoto()?>">
+                                                </a>
                                             </div>
                                             <div class="info">
-                                                <p class="m-0"> <?=$comment->getAuthorName().' '.$comment->getAuthorSurname() ?> points &bull;</p>
+                                                <a href="user?user_id=<?= $comment->getUserId()?>">
+                                                    <p class="m-0"> <?= $comment->getAuthorName().' '.$comment->getAuthorSurname() ?>
+                                                </a>
+                                                points &bull;</p>
                                             </div> 
                                         </div>
                                     </div>
                                     <div class="comment-body">
                                         <p><?= $comment->getContent()?></p>
-                                        <button type="button">Flag</button>
+                                        <button class="reportComment" data-comment-id="<?=$comment->getID()?>">Report</button>
                                     </div>
                                 </div>
                             </div>

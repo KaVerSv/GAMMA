@@ -15,6 +15,8 @@
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/gallery.js"></script>
+    <script src="../../public/js/like.js"></script>
+    <script src="../../public/js/report.js"></script>
     <script>
         function toggleCommentForm(postId) {
             var commentForm = document.getElementById('comment-form-container-' + postId);

@@ -47,4 +47,21 @@ class CommentController extends AppController
         $this->commentRepository->addReports($liked_comments, $user_id);
     }
 
+    public function likeComment(){
+        if (isset($_POST['commentID'])) {
+            $_SESSION["liked_comments"][] = $_POST['commentID'];
+            echo 'Polubiono comment';
+        } else {
+            echo 'Błąd: Brak przekazanego ID commenta.';
+        }
+    }
+
+    public function reportComment(){
+        if (isset($_POST['commentID'])) {
+            $_SESSION["reported_comments"][] = $_POST['commentID'];
+            echo 'Report comment';
+        } else {
+            echo 'Błąd: Brak przekazanego ID commenta.';
+        }
+    }
 }

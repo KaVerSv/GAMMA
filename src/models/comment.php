@@ -19,16 +19,25 @@ class Comment
         $this->content = $content;
     }
 
-    public function getId()
-    {
+    // Getter i Setter dla $id
+    public function getId() {
         return $this->id;
     }
 
-    public function getContent()
-    {
-        return $this->content;
+    public function setId($id) {
+        $this->id = $id;
     }
 
+    // Getter i Setter dla $user_id
+    public function getUserId() {
+        return $this->user_id;
+    }
+
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+    }
+
+    // Getter i Setter dla $author_name
     public function getAuthorName() {
         return $this->author_name;
     }
@@ -37,6 +46,7 @@ class Comment
         $this->author_name = $author_name;
     }
 
+    // Getter i Setter dla $author_surname
     public function getAuthorSurname() {
         return $this->author_surname;
     }
@@ -45,6 +55,7 @@ class Comment
         $this->author_surname = $author_surname;
     }
 
+    // Getter i Setter dla $author_photo
     public function getAuthorPhoto() {
         return $this->author_photo;
     }
@@ -52,5 +63,13 @@ class Comment
     public function setAuthorPhoto($author_photo) {
         $this->author_photo = $author_photo;
     }
+
+    // Getter i Setter dla $content
+    public function getContent() {
+        return $this->content;
+    }
+
+    public function setContent($content) {
+        $this->content = $content;
+    }
 }
-?>

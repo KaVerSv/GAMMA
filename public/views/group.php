@@ -15,7 +15,15 @@
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/gallery.js"></script>
+    <script src="../../public/js/like.js"></script>
+    <script src="../../public/js/report.js"></script>
     <link rel="stylesheet" type="text/css" href="../../public/css/gallery-style.css">
+    <script>
+        function toggleCommentForm(postId) {
+            var commentForm = document.getElementById('comment-form-container-' + postId);
+            commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </head>
 
 <body>

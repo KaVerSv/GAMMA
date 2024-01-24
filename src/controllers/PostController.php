@@ -58,4 +58,23 @@ class PostController extends AppController
         $this->postRepository->addReports($liked_posts, $user_id);
     }
 
+    public function likePost(){
+        if (isset($_POST['postID'])) {
+            $_SESSION["liked_posts"][] = $_POST['postID'];
+            echo 'Polubiono post o ID ' . $postID;
+        } else {
+            echo 'Błąd: Brak przekazanego ID posta.';
+        }
+        error_log($_POST['postID']);
+    }
+
+    public function reportPost(){
+        if (isset($_POST['postID'])) {
+            $_SESSION["reported_posts"][] = $_POST['postID'];
+            echo 'Report post o ID ' . $postID;
+        } else {
+            echo 'Błąd: Brak przekazanego ID posta.';
+        }
+        error_log($_POST['postID']);
+    }
 }

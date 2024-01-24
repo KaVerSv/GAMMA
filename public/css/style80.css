@@ -337,3 +337,9 @@ button:active {
     object-fit: cover;
 }
 /* ... inne style ... */
+
+a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
