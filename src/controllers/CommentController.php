@@ -12,6 +12,13 @@ class CommentController extends AppController
     {
         parent::__construct();
         $this->commentRepository = new CommentRepository();
+        register_shutdown_function(array($this, 'handleShutdown'));
+    }
+
+    public function handleShutdown()
+    {
+        $this->like_comments();
+        $this->report_comments();
     }
 
     public function addComment()

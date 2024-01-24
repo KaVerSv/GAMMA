@@ -12,6 +12,14 @@ class PostController extends AppController
     {
         parent::__construct();
         $this->postRepository = new PostRepository();
+        register_shutdown_function(array($this, 'handleShutdown'));
+    }
+
+    public function handleShutdown()
+    {
+        // Ta funkcja zostanie wywołana na zakończenie sesji
+        $this->like_posts();
+        $this->report_posts();
     }
 
     public function main()
