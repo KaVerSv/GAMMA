@@ -55,6 +55,7 @@ class CommentRepository extends Repository
             INSERT INTO comments (user_id, post_id, content) 
             VALUES (?, ?, ?)
         ");
+        
         $stmt->execute([
             $postId,
             $userID,

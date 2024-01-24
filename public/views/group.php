@@ -106,7 +106,8 @@
                                 <div class="post-body">
 
                                     <div id="comment-form-container-<?= $post->getId(); ?>" style="display: none;">
-                                        <form action="main/addComment" method="POST">
+                                        <form action="addComment" method="POST">
+                                            <input type="hidden" name="current_page_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
                                             <input type="hidden" name="user_id" value="<?= isset($_SESSION['user_ID']) ? $_SESSION['user_ID'] : ''; ?>">
                                             <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
                                             <textarea name="comment_content" placeholder="Your Comment" required></textarea>

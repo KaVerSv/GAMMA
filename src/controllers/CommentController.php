@@ -23,19 +23,20 @@ class CommentController extends AppController
 
     public function addComment()
     {
-        if (!$this->isPost()) {
-            // Zabezpieczenie przed próbą dostępu bezpośredniego do akcji
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-            exit();
-        }
-
+        // if (!$this->isPost()) {
+        //     // Zabezpieczenie przed próbą dostępu bezpośredniego do akcji
+        //     header('Location: ' . $_SERVER['HTTP_REFERER']);
+        //     exit();
+        // }
+        $currentPageUrl = $_POST['current_page_url'] ?? 'index';
         $postId = $_POST['post_id'];
         $userID = $_SESSION['user_ID'];
         $commentContent = $_POST['comment_content'];
 
         $this->commentRepository->addComment($postId, $userID, $commentContent);
 
-        $this->main();
+        header('Location: ' . $currentPageUrl);
+        exit();
     }
 
     public function like_comments()
