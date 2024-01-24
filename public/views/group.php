@@ -39,6 +39,15 @@
     </div>
 </nav>
     <main>
+        <div class="group-info">
+            <div class="group-photo">
+                <img src="../../public/img/<?=$group_profile->getImagePath()?>">
+            </div>
+            <div class="info">
+                <p class="m-0"> <?=$group_profile->getName() ?></p>
+                <p class="m-1"> <?= $group_profile->getDescription() ?></p>
+            </div> 
+        </div>
         <div>
             <?php foreach ($group_profile->getPosts() as $post):?>
                 <div class="post-thread">

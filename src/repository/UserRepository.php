@@ -59,12 +59,11 @@ class UserRepository extends PostRepository
         $stmt->execute([$user_id]);
 
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
-        
         $user_profile = new UserProfile(
             $userData['id'],
             $userData['name'],
             $userData['surname'],
-            $userpData['image_path'],
+            $userData['image_path'],
             $userData['description'],
         );
 

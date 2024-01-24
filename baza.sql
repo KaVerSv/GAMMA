@@ -107,3 +107,33 @@ CREATE TABLE comments(
 INSERT INTO comments(user_id, post_id, content) VALUES
 (2, 1, 'komentarz'),
 (3, 1, 'komentarz2');
+
+CREATE TABLE likes(
+	id serial primary key,
+	post_id int,
+	comment_id int,
+	user_id int not null,
+	foreign key (user_id) references users(id),
+    foreign key (post_id) references posts(id),
+	foreign key (comment_id) references comments(id)
+);
+
+CREATE TABLE reports(
+	id serial primary key,
+	post_id int,
+	comment_id int,
+	reporting_user_id int not null,
+	foreign key (reporting_user_id) references users(id),
+    foreign key (post_id) references posts(id),
+	foreign key (comment_id) references comments(id)
+);
+
+CREATE TABLE banned(
+	id serial primary key,
+	report_id int not null,
+	user_id int not null,
+	ban_reason text not null,
+	expiration_date date not null,
+	foreign key (report_id) references reports(id),
+    foreign key (user_id) references users(id)
+);

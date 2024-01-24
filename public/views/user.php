@@ -45,6 +45,15 @@
     </div>
 </nav>
     <main>
+        <div class="user-info">
+            <div class="user-photo">
+                <img src="../../public/img/<?=$user_profile->getImagePath()?>">
+            </div>
+            <div class="info">
+                <p class="m-0"> <?=$user_profile->getName().' '.$user_profile->getSurname() ?></p>
+                <p class="m-1"> <?= $user_profile->getDescription() ?></p>
+            </div> 
+        </div>
         <div>
             <?php foreach ($user_profile->getPosts() as $post):?>
                 <div class="post-thread">
