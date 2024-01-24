@@ -18,7 +18,7 @@ Routing::get('search', 'SearchController');
 Routing::get('addComment', 'CommentController');
 Routing::get('likeComment', 'CommentController');
 Routing::get('reportComment', 'CommentController');
-Routing::get('reportPost', 'PostController');
+Routing::get('likePost', 'PostController');
 Routing::get('reportPost', 'PostController');
 
 Routing::run($path);

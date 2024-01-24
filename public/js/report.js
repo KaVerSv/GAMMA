@@ -1,8 +1,14 @@
 // Nasłuchiwanie kliknięcia na elementy o klasie "likeButton"
-$('.reportPost').click(function() {
-    var postID = $(this).data('post-id');
-    reportPost(postID);
-});
+document.addEventListener('DOMContentLoaded', function() {
+    var reportPostButtons = document.querySelectorAll('.reportPost');
+
+    reportPostButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var postID = this.getAttribute('data-post-id');
+            reportPost(postID);
+            alert(11);
+        });
+    });
 
 function reportPost(postID) {
     // Wywołaj AJAX, aby przesłać ID posta do serwera
@@ -18,14 +24,19 @@ function reportPost(postID) {
         }
     });
 }
-
-
-
-// Nasłuchiwanie kliknięcia na elementy o klasie "likeButton"
-$('.reportComment').click(function() {
-    var commentID = $(this).data('comment-id');
-    reportComment(commentID);
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var reportCommentButtons = document.querySelectorAll('.reportComment');
+
+    reportCommentButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var commentID = this.getAttribute('data-comment-id');
+            reportComment(commentID);
+            alert(22);
+        });
+    });
 
 function reportComment(commentID) {
     // Wywołaj AJAX, aby przesłać ID posta do serwera
@@ -41,3 +52,4 @@ function reportComment(commentID) {
         }
     });
 }
+});

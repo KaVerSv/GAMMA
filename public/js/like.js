@@ -1,43 +1,54 @@
 // Nasłuchiwanie kliknięcia na elementy o klasie "likeButton"
-$('.likePost').click(function() {
-    var postID = $(this).data('post-id');
-    polubPost(postID);
-});
+document.addEventListener('DOMContentLoaded', function() {
+    var likePostButtons = document.querySelectorAll('.likePost');
 
-function polubPost(postID) {
-    // Wywołaj AJAX, aby przesłać ID posta do serwera
-    $.ajax({
-        type: 'POST',
-        url: 'likePost', // Ustaw ścieżkę do pliku obsługującego polubienie
-        data: { postID: postID },
-        success: function(response) {
-            console.log('Post polubiony: ' + response);
-        },
-        error: function(error) {
-            console.error('Błąd podczas polubienia: ' + error);
-        }
+    likePostButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var postID = this.getAttribute('data-post-id');
+            polubPost(postID);
+            alert(1);
+        });
     });
-}
 
-
-
-// Nasłuchiwanie kliknięcia na elementy o klasie "likeButton"
-$('.likeComment').click(function() {
-    var commentID = $(this).data('comment-id');
-    polubComment(commentID);
+    function polubPost(postID) {
+        $.ajax({
+            type: 'POST',
+            url: 'likePost', // Ustaw ścieżkę do pliku obsługującego polubienie
+            data: { postID: postID },
+            success: function(response) {
+                console.log('Post polubiony: ' + response);
+            },
+            error: function(error) {
+                console.error('Błąd podczas polubienia: ' + error);
+            }
+        });
+    }
 });
 
-function polubComment(commentID) {
-    // Wywołaj AJAX, aby przesłać ID posta do serwera
+
+// Nasłuchiwanie kliknięcia na elementy o klasie "likeComment"
+document.addEventListener('DOMContentLoaded', function() {
+    var likeCommentButtons = document.querySelectorAll('.likeComment');
+
+    likeCommentButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var commentID = this.getAttribute('data-comment-id');
+            polubComment(commentID);
+            alert(2);
+        });
+    });
+
+    function polubComment(commentID) {
     $.ajax({
         type: 'POST',
-        url: 'likeComment', // Ustaw ścieżkę do pliku obsługującego polubienie
+        url: 'likeComment',
         data: { commentID: commentID },
         success: function(response) {
-            console.log('Comment polubiony: ' + response);
+            console.log('Komentarz polubiony: ' + response);
         },
         error: function(error) {
             console.error('Błąd podczas polubienia: ' + error);
         }
     });
-}
+    }
+});

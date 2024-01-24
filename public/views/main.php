@@ -9,14 +9,11 @@
     <meta name="author" content="Piotr Żywczak">
     <link rel="icon" type="image/x-icon" href="../../public/img/logo.png">
     <link rel="stylesheet" type="text/css" href="../../public/css/style80.css">
-    <?php if ($_SESSION['user_type'] != 'admin') : ?>
-        <link rel="stylesheet" type="text/css" href="../../public/css/style100.css">
-    <?php endif; ?>
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../public/js/gallery.js"></script>
     <script src="../../public/js/like.js"></script>
     <script src="../../public/js/report.js"></script>
+    <script src="../../public/js/gallery.js"></script>
     <script>
         function toggleCommentForm(postId) {
             var commentForm = document.getElementById('comment-form-container-' + postId);
