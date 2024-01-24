@@ -4,79 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ta strona to będzie coś wspaniałego">
-    <meta name="keywords" content="strona, wspaniała, niczym">
-    <meta name="author" content="Piotr Żywczak">
     <link rel="icon" type="image/x-icon" href="../../public/img/logo.png">
     <link rel="stylesheet" type="text/css" href="../../public/css/style80.css">
-    <?php if ($_SESSION['user_type'] != 'admin') : ?>
-        <link rel="stylesheet" type="text/css" href="../../public/css/style100.css">
-    <?php endif; ?>
+    <link rel="stylesheet" type="text/css" href="../../public/css/searchstyle.css">
     <title>Gamma</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/gallery.js"></script>
     <script src="../../public/js/like.js"></script>
     <script src="../../public/js/report.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/css/gallery-style.css">
     <script>
         function toggleCommentForm(postId) {
             var commentForm = document.getElementById('comment-form-container-' + postId);
             commentForm.style.display = commentForm.style.display === 'none' ? 'block' : 'none';
         }
     </script>
-    <link rel="stylesheet" type="text/css" href="../../public/css/gallery-style.css">
 </head>
 
 <body>
     <header>
         <div>
-            <img src="../../public/img/logo.png" alt="Logo should be here">
+            <a href="main">
+                <img class="logo" src="../../public/img/logo.png" alt="Logo should be here">
+            </a>
         </div>
         <div>
-            <img src="../../public/img/user.png" alt="user">
-            <span id="logged_user"><?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] . ' ' . $_SESSION['user_surname'] : '' ?></span>
+            <a href="user?user_id=<?= isset($_SESSION['user_ID']) ? $_SESSION['user_ID']: '' ?>">
+                <img src="../../public/img/user.png" alt="user">
+            </a>
+            <a href="user?user_id=<?= isset($_SESSION['user_ID']) ? $_SESSION['user_ID']: '' ?>">
+                <span id="logged_user"><?= isset($_SESSION['user_name']) ? $_SESSION['user_name'] . ' ' . $_SESSION['user_surname'] : '' ?></span>
+            </a>
             <a href="logout"><img src="../../public/img/logout.png" alt="logout"></a>
         </div>
     </header>
 
-<nav>
-    <div id="search-form-container">
-        <form action="search" method="GET" id="search">
-            <input type="text" name="query" placeholder="Szukaj w...">
-            <button type="submit">Szukaj</button>
-        </form>
-    </div>
-</nav>
+    <nav>
+        <div id="search-form-container">
+            <form action="search" method="GET" id="search">
+                <input type="text" name="query" placeholder="Szukaj w...">
+                <button type="submit">Szukaj</button>
+            </form>
+        </div>
+    </nav>
+
     <main>
-        <div>
-            <h3>Użytkownicy</h3>
+        <h1>Użytkownicy</h1>
+        <div class = "users">
             <?php foreach ($found_users as $user):?>
                 <div class="user-info">
                     <div class="user-photo">
-                        <img src="../../public/img/<?=$user->getImagePath()?>">
+                        <a href="user?user_id=<?= $user->getId()?>">
+                            <img src="../../public/img/<?=$user->getImagePath()?>">
+                        </a>
                     </div>
                     <div class="info">
-                        <p class="m-0"> <?=$user->getName().' '.$user->getSurname() ?></p>
+                        <a href="user?user_id=<?= $user->getId()?>">
+                            <p class="m-0"> <?=$user->getName().' '.$user->getSurname() ?></p>
+                        </a>
                         <p class="m-1"> <?= $user->getDescription() ?></p>
                     </div> 
                 </div>
             <?php endforeach; ?>
         </div>
-        <div>
-            <h3>Grupy</h3>
+        <h1>Grupy</h1>
+        <div class = "groups">   
             <?php foreach ($found_groups as $group):?>
                 <div class="group-info">
                     <div class="group-photo">
-                        <img src="../../public/img/<?=$group->getImagePath()?>">
+                        <a href="group?group_id=<?= $group->getId()?>">
+                            <img src="../../public/img/<?=$group->getImagePath()?>">
+                        </a>
                     </div>
                     <div class="info">
-                        <p class="m-0"> <?=$group->getName() ?></p>
+                        <a href="group?group_id=<?= $group->getId()?>">
+                            <p class="m-0"> <?=$group->getName() ?></p>
+                        </a>
                         <p class="m-1"> <?= $group->getDescription() ?></p>
                     </div> 
                 </div>
             <?php endforeach; ?>
         </div>
         <div>
-            <h3>Posty</h3>
+            <h1>Posty</h1>
             <div>
             <?php foreach ($found_posts as $post):?>
                 <div class="post-thread">
@@ -84,7 +94,7 @@
                         <a class="post-border-link" id="main-border"></a>
                             <div class="post-heading">
                                 <div class="post-voting">
-                                    <button type="button">
+                                    <button class="likePost" data-post-id="<?=$post->getID()?>">
                                         <span aria-hidden="true">&#9650;</span>
                                         <span class="sr-only">Vote up</span> 
                                     </button>
@@ -92,10 +102,16 @@
                                 </div>
                                 <div class="post-info">
                                     <div class="author-photo">
-                                        <img src="../../public/img/<?=$post->getAuthorPhoto()?>">
+                                        <a href="user?user_id=<?= $post->getUserId()?>">
+                                            <img src="../../public/img/<?=$post->getAuthorPhoto()?>">
+                                        </a>
                                     </div>
                                     <div class="info">
-                                        <p class="m-0"> <?=$post->getAuthorName().' '.$post->getAuthorSurname() ?> points &bull;</p>
+                                        <p class="m-0"> 
+                                            <a href="user?user_id=<?= $post->getUserId()?>">
+                                                <?=$post->getAuthorName().' '.$post->getAuthorSurname()?>
+                                            </a>
+                                            points &bull;</p>
                                         <p class="m-1"> <?= $post->getTime() ?></p>
                                     </div> 
                                 </div>
@@ -114,10 +130,9 @@
                                 </div>
                                 <p><?=$post->getContent()?></p>
                                 <button type="button" onclick="toggleCommentForm(<?= $post->getId(); ?>)">Reply</button>
-                                <button type="button">Flag</button>
+                                <button class="reportPost" data-post-id="<?=$post->getID()?>">Report</button>
 
                                 <div class="post-body">
-                                    <!-- ... inne elementy ... -->
 
                                     <div id="comment-form-container-<?= $post->getId(); ?>" style="display: none;">
                                         <form action="main/addComment" method="POST">
@@ -138,23 +153,28 @@
                                     <a class="comment-border-link"></a>
                                     <div class="comment-heading">
                                         <div class="comment-voting">
-                                            <button type="button">
+                                            <button class="likeComment" data-comment-id="<?=$comment->getID()?>">
                                                 <span aria-hidden="true">&#9650;</span>
                                                 <span class="sr-only">Vote up</span>
                                             </button>
                                         </div>
                                         <div class="comment-info">
                                             <div class="author-photo">
-                                                <img src="../../public/img/<?=$comment->getAuthorPhoto()?>">
+                                                <a href="user?user_id=<?= $comment->getUserId()?>">
+                                                    <img src="../../public/img/<?= $comment->getAuthorPhoto()?>">
+                                                </a>
                                             </div>
                                             <div class="info">
-                                                <p class="m-0"> <?=$comment->getAuthorName().' '.$comment->getAuthorSurname() ?> points &bull;</p>
+                                                <a href="user?user_id=<?= $comment->getUserId()?>">
+                                                    <p class="m-0"> <?= $comment->getAuthorName().' '.$comment->getAuthorSurname() ?>
+                                                </a>
+                                                points &bull;</p>
                                             </div> 
                                         </div>
                                     </div>
                                     <div class="comment-body">
                                         <p><?= $comment->getContent()?></p>
-                                        <button type="button">Flag</button>
+                                        <button class="reportComment" data-comment-id="<?=$comment->getID()?>">Report</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,48 @@
+main > .groups,
+main > .users {
+    border: 1px solid grey;
+    box-shadow: 0 0 10px grey;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Wyśrodkowanie zawartości w pionie */
+    width: 700px;
+}
+
+main > .users .user-info,
+main > .groups .group-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+main > .users .user-info .user-photo img,
+main > .groups .group-info .group-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+main > .users .user-info .info,
+main > .groups .group-info .info {
+    display: flex;
+    flex-direction: column;
+}
+
+main > .users .user-info .info p,
+main > .groups .group-info .info p {
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+main > .users .user-info .info .m-1,
+main > .groups .group-info .info .m-1 {
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 16px;
+}

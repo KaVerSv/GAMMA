@@ -1,0 +1,31 @@
+main > div:first-child {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+main > div:first-child .user-photo img, main > div:first-child .group-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+main > div:first-child .info {
+    display: flex;
+    flex-direction: column;
+}
+
+main > div:first-child .info p {
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0;
+}
+
+main > div:first-child .info .m-1 {
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 20px;
+}
