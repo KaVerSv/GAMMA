@@ -23,6 +23,10 @@ class CommentController extends AppController
 
     public function addComment()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         // if (!$this->isPost()) {
         //     // Zabezpieczenie przed próbą dostępu bezpośredniego do akcji
         //     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -41,6 +45,10 @@ class CommentController extends AppController
 
     public function like_comments()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         $liked_comments = $_SESSION['liked_comments'];
         $user_id = $_SESSION['user_ID'];
 
@@ -49,6 +57,10 @@ class CommentController extends AppController
 
     public function report_comments()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         $reported_comments = $_SESSION['reported_comments'];
         $user_id = $_SESSION['user_ID'];
 
@@ -56,6 +68,10 @@ class CommentController extends AppController
     }
 
     public function likeComment(){
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if (isset($_POST['commentID'])) {
             $_SESSION["liked_comments"][] = $_POST['commentID'];
             echo 'Polubiono comment';
@@ -65,6 +81,10 @@ class CommentController extends AppController
     }
 
     public function reportComment(){
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if (isset($_POST['commentID'])) {
             $_SESSION["reported_comments"][] = $_POST['commentID'];
             echo 'Report comment';

@@ -21,6 +21,10 @@ class SearchController extends AppController
 
     public function search()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if ($this->isGet()) {
             $search = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_STRING);
 

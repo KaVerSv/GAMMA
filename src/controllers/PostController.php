@@ -24,12 +24,20 @@ class PostController extends AppController
 
     public function main()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         $latestPosts = $this->postRepository->getLatestPosts();
         return $this->render('main', ['posts' => $latestPosts]);
     }
 
     public function addPost()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if (!$this->isPost()) {
             return $this->render('addPost');
         }
@@ -52,6 +60,10 @@ class PostController extends AppController
 
     public function like_posts()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         $liked_posts = $_SESSION['liked_posts'];
         $user_id = $_SESSION['user_ID'];
 
@@ -60,12 +72,20 @@ class PostController extends AppController
 
     public function report_posts()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         $reported_posts = $_SESSION['reported_posts'];
         $user_id = $_SESSION['user_ID'];
         $this->postRepository->addReports($reported_posts, $user_id);
     }
 
     public function likePost(){
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if (isset($_POST['postID'])) {
             $_SESSION["liked_posts"][] = $_POST['postID'];
             echo 'Polubiono post o ID ' . $postID;
@@ -76,6 +96,10 @@ class PostController extends AppController
     }
 
     public function reportPost(){
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if (isset($_POST['postID'])) {
             $_SESSION["reported_posts"][] = $_POST['postID'];
             echo 'Report post o ID ' . $postID;

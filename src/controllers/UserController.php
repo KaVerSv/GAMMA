@@ -16,6 +16,10 @@ class UserController extends AppController
 
     public function user()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if ($this->isGet()) {
             $user_id = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
             

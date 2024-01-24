@@ -16,6 +16,10 @@ class GroupController extends AppController
 
     public function group()
     {
+        if (!isset($_SESSION['user_ID'])) {
+            header('Location: /login');
+            exit();
+        }
         if ($this->isGet()) {
             $group_id = filter_input(INPUT_GET, 'group_id', FILTER_VALIDATE_INT);
 
