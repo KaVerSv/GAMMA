@@ -51,7 +51,7 @@ class CommentController extends AppController
         $reported_comments = $_SESSION['reported_comments'];
         $user_id = $_SESSION['user_ID'];
 
-        $this->commentRepository->addReports($liked_comments, $user_id);
+        $this->commentRepository->addReports($reported_comments, $user_id);
     }
 
     public function likeComment(){

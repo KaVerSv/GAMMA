@@ -66,7 +66,7 @@ class CommentRepository extends Repository
     {
         foreach ($reported_comments as $comment_id) {
             $stmt = $this->database->connect()->prepare('
-                INSERT INTO reports (user_id, comment_id)
+                INSERT INTO reports (reporting_user_id, comment_id)
                 VALUES (?, ?)
             ');
         

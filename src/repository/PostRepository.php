@@ -223,7 +223,7 @@ class PostRepository extends CommentRepository
     {
         foreach ($reported_posts as $post_id) {
             $stmt = $this->database->connect()->prepare('
-                INSERT INTO reports (user_id, post_id)
+                INSERT INTO reports (reporting_user_id, post_id)
                 VALUES (?, ?)
             ');
         

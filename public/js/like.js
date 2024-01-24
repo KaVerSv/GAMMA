@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             var postID = this.getAttribute('data-post-id');
             polubPost(postID);
-            alert(1);
         });
     });
 
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             var commentID = this.getAttribute('data-comment-id');
             polubComment(commentID);
-            alert(2);
         });
     });
 

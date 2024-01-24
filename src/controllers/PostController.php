@@ -62,8 +62,7 @@ class PostController extends AppController
     {
         $reported_posts = $_SESSION['reported_posts'];
         $user_id = $_SESSION['user_ID'];
-
-        $this->postRepository->addReports($liked_posts, $user_id);
+        $this->postRepository->addReports($reported_posts, $user_id);
     }
 
     public function likePost(){
