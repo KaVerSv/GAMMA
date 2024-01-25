@@ -13,6 +13,7 @@
     <script src="../../public/js/like.js"></script>
     <script src="../../public/js/addPost.js"></script>
     <script src="../../public/js/report.js"></script>
+    <script src="../../public/js/preview.js"></script>
     <link rel="stylesheet" type="text/css" href="../../public/css/gallery-style.css">
     <script>
         function toggleCommentForm(postId) {
@@ -60,21 +61,27 @@
             </div> 
         </div>
         <div id="form-container">
-            <button type="button" class ="add-post">Add post</button>
+            <button type="button" class="add-post">Add post</button>
             <form action="addPost" method="POST" id="add_post" enctype="multipart/form-data" style="display: none">
                 <input type="hidden" name="current_page_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
                 <input type="hidden" name="user_id" value="<?= isset($_SESSION['user_ID']) ? $_SESSION['user_ID'] : ''; ?>">
                 <input type="hidden" name="group_id" value="<?= $group_profile->getId(); ?>">
                 <label for="title">Title:</label>
                 <input type="text" name="title" placeholder="title" required>
-                <!--<div id="gallery-container" style="display: none">
-                    <img class="image" src="" alt="Gallery Image">
-                    <button class="scroll-button-left">Previous</button>
-                    <button class="scroll-button-right">Next</button>
-                </div>-->
-                <label for="photo">Zdjęcie:</label>
-                <input type="file" id="photos" name="photos[]" accept="image/*" multiple onchange="displayPreviewImages()">
-                <label for="photo">Content:</label>
+                <div id="preview-gallery-container" style="display: none">
+                    <div class="image-wrapper active">
+                        <div>
+                            <button type="button" class="preview-scroll-button preview-scroll-button-left" onclick="scrollPreviewGallery(-1)">&#9665;</button>
+                        </div>
+                        <img class="preview-image" src="" alt="Gallery Image">
+                        <div>
+                            <button type="button" class="preview-scroll-button preview-scroll-button-right" onclick="scrollPreviewGallery(1)">&#9655;</button>
+                        </div>
+                    </div>
+                </div>
+                <label for="photos">Zdjęcia:</label>
+                <input type="file" id="photos" name="photos[]" accept="image/*" multiple onchange="displayPreviewGallery()">
+                <label for="content">Content:</label>
                 <textarea name="content" placeholder="Your post's content"></textarea>
                 <button type="submit">Opublikuj</button>
             </form>
@@ -173,7 +180,6 @@
                             </div>
                             <?php endforeach; ?>
                         </div>
-                        <button type="button" id = "load-more">Load more replies</button>
                     </div>
                 </div>
             <?php endforeach; ?>

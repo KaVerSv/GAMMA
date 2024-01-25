@@ -11,7 +11,7 @@ class UserRepository extends PostRepository
         $stmt = $this->database->connect()->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
-
+    
         return $stmt->fetchColumn() == 0;
     }
 
@@ -36,7 +36,7 @@ class UserRepository extends PostRepository
         $stmt->execute();
 
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $this->database->closeConnection();
         if (!$userData) {
             return null;
         }
@@ -59,6 +59,8 @@ class UserRepository extends PostRepository
         $stmt->execute([$user_id]);
 
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->database->closeConnection();
+
         $user_profile = new UserProfile(
             $userData['id'],
             $userData['name'],
@@ -88,6 +90,7 @@ class UserRepository extends PostRepository
         }
     
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->database->closeConnection();
         $found_users = [];
     
         foreach($usersData as $userData){
@@ -103,8 +106,6 @@ class UserRepository extends PostRepository
         return $found_users;
     }
     
-    
-
     public function addUser(User $user)
     {
         if (!$this->isEmailUnique($user->getEmail())) {
@@ -143,6 +144,7 @@ class UserRepository extends PostRepository
         $stmt->execute();
 
         $userName = $stmt->fetchColumn();
+        $this->database->closeConnection();
 
         return $userName ? $userName : null;
     }

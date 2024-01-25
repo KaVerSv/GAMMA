@@ -152,7 +152,6 @@
                             </div>
                             <?php endforeach; ?>
                         </div>
-                        <button type="button" id = "load-more">Load more replies</button>
                     </div>
                 </div>
             <?php endforeach; ?>

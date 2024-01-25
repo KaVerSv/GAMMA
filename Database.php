@@ -34,4 +34,9 @@ class Database {
             die("Connection failed: " . $e->getMessage());
         }
     }
+
+    public function closeConnection()
+    {
+        $this->conn = null;
+    }
 }

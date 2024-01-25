@@ -3,6 +3,10 @@
     padding: 0;
     overflow: hidden;
   }
+
+  #preview-gallery-container{
+    margin: 10px;
+  }
   
   #gallery-container {
     display: flex;
@@ -33,7 +37,7 @@
     opacity: 1;
   }
   
-  .scroll-button {
+  .scroll-button, .preview-scroll-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -45,11 +49,11 @@
     font-size: 18px;
   }
   
-  .scroll-button-left {
+  .scroll-button-left,  .preview-scroll-button-left {
     left: 0;
   }
   
-  .scroll-button-right {
+  .scroll-button-right,  .preview-scroll-button-right {
     right: 0;
   }
   
