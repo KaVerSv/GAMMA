@@ -1,16 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const addButton = document.querySelector("#addButton");
-    const formContainer = document.querySelector("#formContainer");
+document.addEventListener('DOMContentLoaded', function () {
+    var addPostButton = document.querySelector('.add-post');
+    var addPostForm = document.getElementById('add_post');
 
-    let isOpen = false;
+    var isFormVisible = false;
 
-    addButton.addEventListener("click", function () {
-        if (isOpen) {
-            formContainer.style.display = "none";
+    addPostButton.addEventListener('click', function () {
+        if (isFormVisible) {
+            addPostForm.style.display = 'none';
         } else {
-            formContainer.style.display = "block";
+            addPostForm.style.display = 'block';
         }
         
-        isOpen = !isOpen;
+        isFormVisible = !isFormVisible;
     });
 });
+

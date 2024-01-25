@@ -32,27 +32,48 @@ class PostRepository extends CommentRepository
     }
     */
 
-    public function addPost(Post $post)
-    {
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO posts (user_id, title, content, group_id, visibility, time)
-            VALUES (:user_id, :title, :content, :group_id, :visibility, :time)
-        ');
+    public function addPost(Post $post, ?array $photos)
+{
+    $stmt = $this->database->connect()->prepare('
+        INSERT INTO posts (user_id, title, content, group_id, visibility)
+        VALUES (:user_id, :title, :content, :group_id, :visibility);
+    ');
 
-        $stmt->bindParam(':user_id', $post->getUserId(), PDO::PARAM_INT);
-        $stmt->bindParam(':title', $post->getTitle(), PDO::PARAM_STR);
-        $stmt->bindParam(':content', $post->getContent(), PDO::PARAM_STR);
-        $stmt->bindParam(':group_id', $post->getGroupId(), PDO::PARAM_INT);
-        $stmt->bindParam(':visibility', $post->getVisibility(), PDO::PARAM_STR);
-        $stmt->bindParam(':time', $post->getTime(), PDO::PARAM_STR);
+    $stmt->bindParam(':user_id', $post->getUserId(), PDO::PARAM_INT);
+    $stmt->bindParam(':title', $post->getTitle(), PDO::PARAM_STR);
+    $stmt->bindParam(':content', $post->getContent(), PDO::PARAM_STR);
+    $stmt->bindParam(':group_id', $post->getGroupId(), PDO::PARAM_INT);
+    $stmt->bindParam(':visibility', $post->getVisibility(), PDO::PARAM_STR);
 
-        if (!$stmt->execute()) {
-            throw new Exception('Error adding post.');
-        }
+    if (!$stmt->execute()) {
+        throw new Exception('Error adding post.');
     }
 
-    public function getRelatedPhotos(int $postId)
-    {
+    $pdo = $this->database->connect();
+
+    $stmt = $pdo->prepare('SELECT id FROM posts ORDER BY id DESC LIMIT 1');
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result && $photos !== null) {
+        $postId = $result['id'];
+
+        foreach ($photos as $photo) {
+            $stmt = $pdo->prepare('
+                INSERT INTO posts_images (post_id, image_path)
+                VALUES (?, ?)
+            ');
+
+            $stmt->execute([
+                $postId,
+                $photo
+            ]);
+        }
+    }
+}
+
+
+    public function getRelatedPhotos(int $postId){
         $stmt = $this->database->connect()->prepare("
             SELECT image_path FROM posts_images
             WHERE post_id = ?

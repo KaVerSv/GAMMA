@@ -186,7 +186,8 @@ button:active {
 }
 
 .comment-thread,
-.post-thread {
+.post-thread,
+#form-container {
     width: 700px;
     max-width: 100%;
     padding: 0 30px;
@@ -194,6 +195,30 @@ button:active {
     border: 1px solid black;
     margin-bottom: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#form-container {
+    text-align: center;
+}
+
+#form-container button{
+    padding: 10px;
+    margin: 10px;
+}
+#form-container input, #form-container textarea {
+    display: block;
+    width: 500px;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+#form-container textarea{
+    height: 80px;
+}
+
+#form-container img {
+    width: 50%;
 }
 
 .m-0 {
