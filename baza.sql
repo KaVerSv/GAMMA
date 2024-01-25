@@ -12,8 +12,8 @@ CREATE TABLE users(
 /**hasło: kwakwa5!**/
 INSERT INTO users(name, surname, email, login, password, type) VALUES
 ('Franek', 'Dolas', 'franekdolas@gmail.com', 'franuś', '$2y$10$5eshcEfZpwE9SvByYaD9j.Iy0C21tSS5rijvTYpAvXt.VJXLncjk.', 'admin'),
-('Franek1', 'Dolas1', 'franekdolas1@gmail.com', 'franek', '$2y$10$5eshcEfZpwE9SvByYaD9j.Iy0C21tSS5rijvTYpAvXt.VJXLncjk.', 'user'),
-('Franek2', 'Dolas2', 'franekdolas2@gmail.com', 'franek2', '$2y$10$5eshcEfZpwE9SvByYaD9j.Iy0C21tSS5rijvTYpAvXt.VJXLncjk.', 'user');
+('Jan', 'Kos', 'jankos@gmail.com', 'jan', '$2y$10$5eshcEfZpwE9SvByYaD9j.Iy0C21tSS5rijvTYpAvXt.VJXLncjk.', 'user'),
+('Jan', 'Kowalski', 'jankowalski@gmail.com', 'jankowalski', '$2y$10$5eshcEfZpwE9SvByYaD9j.Iy0C21tSS5rijvTYpAvXt.VJXLncjk.', 'user');
 
 
 CREATE TABLE groups(
@@ -80,7 +80,7 @@ FOR EACH ROW
 EXECUTE FUNCTION update_post_time();
 
 INSERT INTO posts(user_id, title, content, group_id, visibility) VALUES
-(1, null, 'zawartosc tresc posta', null, 'public'),
+(1, 'tytuł posta', 'zawartosc tresc posta', null, 'public'),
 (1, 'tytuł', 'zawartosc', 1, 'public');
 
 CREATE TABLE posts_images(
